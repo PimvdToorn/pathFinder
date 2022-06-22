@@ -8,7 +8,7 @@ class Node:
         self.links = []
 
     def __str__(self) -> str:
-        return str(self.pos)
+        return "(" + str(self.pos[0]) + ',' + str(self.pos[1]) + ")"
         
     def __repr__(self):
         return str(self)
@@ -88,7 +88,6 @@ class Robot:
             self.path.append(grid.getNode(pos))
     
 
-
     def __repr__(self):
         return str(self.path)
 
@@ -104,6 +103,7 @@ def findPath(robots : list[Robot],start : Node, goal : Node):
 
         current = dijkstraNode(None, 60000, None)
 
+        # Get the node with the shortest distance, that hasn't been visited yet (fully checked)
         for dNode in dijkNodes:
             if dNode.visited == False and dNode.dist < current.dist:
                 current = dNode
@@ -113,12 +113,15 @@ def findPath(robots : list[Robot],start : Node, goal : Node):
             next = dijkstraNode(link, current.dist+1, current)
 
 
+            # Check if any robot will be at the location the step before, during or after this robot would move there, if so add 1 to distance and check again
+            # (wait 1 more at current location before moving to link)
             intersect = True
             while intersect:
                 intersect = False
 
                 for robot in robots:
-                    if len(robot.path) > next.dist and (robot.path[next.dist] == link or robot.path[next.dist-1] == link):
+                    #    robot has steps then      and       r will be there          or     r just left                 or     r has step after             and   will be there just after 
+                    if len(robot.path) > next.dist and (robot.path[next.dist] == link or robot.path[next.dist-1] == link or (len(robot.path) > next.dist + 1 and robot.path[next.dist+1] == link)):
                         next.dist += 1
                         intersect = True
                         break
@@ -130,7 +133,7 @@ def findPath(robots : list[Robot],start : Node, goal : Node):
                 break
 
             
-
+            # Check if any robot will end at the location before this robot would be there
             intersect = False
             for robot in robots:
                 if len(robot.path) > 0 and robot.path[-1] == link and len(robot.path) <= next.dist:
@@ -159,48 +162,71 @@ def findPath(robots : list[Robot],start : Node, goal : Node):
         while intersect:
             intersect = False
 
+            noOfLinks = 0
             for link in dijkNodes:
+                
+
                 if link.previous == current:
+                    noOfLinks += 1
 
                     for robot in robots:
                         try:
                             length = len(robot.path) - 1
-                            lastIndex = length - robot.path[::-1].index(current.node, length - link.dist, length - current.dist)
+                            lastIndex = length - robot.path[::-1].index(current.node, length - link.dist - 1, length - current.dist)
                         except:
                             lastIndex = -1
 
 
                         else:
-                            # print("in da way: " + str(current.node) + " at" + str(lastIndex) + "\tPr:" + str(current.previous.node))
-                            # print(robot.path[lastIndex])
+                            
+                            print("in da way: " + str(current.node) + str(robot.path[lastIndex]) + " at" + str(lastIndex))
                             # sleep(1)
 
-                            dijkNodes.append(dijkstraNode(current.node, lastIndex+2, current.previous))
-                            dijkNodes.remove(link)
+                            # if not (intersect and dijkNodes[-1].node == current.node and dijkNodes[-1].dist == lastIndex + 1):
+                            if not (intersect and dijkNodes[-1].dist == lastIndex + 1):
+                                dijkNodes.append(dijkstraNode(current.node, lastIndex + 1, current.previous))
 
-                            current = current.previous
+                                print(str(dijkNodes[-1]))
+                            else:
+                                print("not new" + str(dijkNodes[-1]))
+
+                            # if current.previous != None:
+                            #     print("in da way: " + str(current.node) + " at" + str(lastIndex) + "\tPr:" + str(current.previous.node))
+
+                            dijkNodes.remove(link)
+                            noOfLinks -= 1
+
+                            # previous = current.previous
+
+                            # if not current.visited:
+                            #     dijkNodes.remove(current)
+
+                            # current = previous
+                            
                             intersect = True
                             break
+                # if intersect: break
+            
+            if intersect:
+                previous = current.previous
 
-            # if intersect:
-            #     print("found da way")
+                # print("Current: " + str(current) + "\tLinks:" + str(noOfLinks))
+                # print("Previous: " + str(previous))
+
+                if noOfLinks == 0:
+                    dijkNodes.remove(current)
+
+                current = previous
 
 
-
-        
-        # print("Visited: " + str(current.node.pos))
 
         if dijkNodes[-1].node == goal:
             break
 
-    # print(dijkNodes)
-    # for dNode in dijkNodes:
-    #     print(dNode)
 
 
 
-
-    # Change the dijkNodes to a list of destinations:
+    # Change the dijkNodes to a list of nodes:
 
     current = dijkNodes[-1]
     path = [current.node]
@@ -241,15 +267,31 @@ grid.addObstacle((5,1))
 
 robots = []
 
+# positions = [(0,0), (1,0), (2,0), (2,1), (2,2), (3,2), (4,2), (5,2), (6,2), (6,1), (6,0), (5,0)]
+# robots.append(Robot(positions, grid))
 
-robots.append(Robot(findPath(robots, grid.getNode((0,0)), grid.getNode((9,0)))))
-robots.append(Robot(findPath(robots, grid.getNode((9,0)), grid.getNode((0,9)))))
-robots.append(Robot(findPath(robots, grid.getNode((0,9)), grid.getNode((9,9)))))
-robots.append(Robot(findPath(robots, grid.getNode((9,9)), grid.getNode((0,0)))))
+# positions = [(9,0), (8,0), (7,0), (7,1), (7,2), (7,3), (7,4), (7,5), (6,5), (5,5), (5,4), (5,3), (5,2), (4,2), (3,2)]
+# robots.append(Robot(positions, grid))
+
+# positions = [(0,9), (0,8), (0,7), (0,6), (1,6), (2,6), (3,6), (3,5), (3,4), (3,3), (2,3)]
+# robots.append(Robot(positions, grid))
+
+# positions = [(9,9), (9,8), (9,7), (9,6), (8,6), (7,6), (6,6), (5,6), (4,6), (4,5), (3,5), (3,4), (2,4)]
+# robots.append(Robot(positions, grid))
+
+
+robots.append(Robot(findPath(robots, grid.getNode((0,0)), grid.getNode((5,0)))))
+robots.append(Robot(findPath(robots, grid.getNode((9,0)), grid.getNode((3,2)))))
+robots.append(Robot(findPath(robots, grid.getNode((0,9)), grid.getNode((2,3)))))
+robots.append(Robot(findPath(robots, grid.getNode((9,9)), grid.getNode((2,4)))))
+robots.append(Robot(findPath(robots, grid.getNode((5,0)), grid.getNode((3,4)))))
 
 
 for i, robot in enumerate(robots):
-    print("Robot " + str(i) + ": " + str(robot.path))
+    print("Robot " + str(i+1) + ": " + str(robot.path))
+
+# print("Robot 2" + str(robots[1]))
+# print("Robot 5" + str(robots[4]))
 
 print(robots)
 
@@ -263,8 +305,7 @@ print(robots)
 #--------------------------------------------------------------
 # old test code
 
-# positions = [(0,4),(0,3),(0,2),(1,2),(2,2),(2,1),(3,1)]
-# robots.append(Robot(positions, grid))
+
 
 # positions = [(1,4),(1,3),(1,3),(0,3),(0,2),(1,2)]
 # robots.append(Robot(positions, grid))
