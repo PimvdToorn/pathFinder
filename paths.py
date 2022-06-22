@@ -164,33 +164,26 @@ def findPath(robots : list[Robot],start : Node, goal : Node):
 
                     for robot in robots:
                         try:
-                            # print(current.node)
-                            index = robot.path.index(current.node, current.dist, link.dist)
-                            
+                            length = len(robot.path) - 1
+                            lastIndex = length - robot.path[::-1].index(current.node, length - link.dist, length - current.dist)
                         except:
-                            index = 0   # Do nothing
+                            lastIndex = -1
+
 
                         else:
-                            # print(link.node.pos)
-                            try:
-                                length = len(robot.path)
-                                lastIndex = length - robot.path[::-1].index(current.node, length - link.dist, length - current.dist)
-                                # print(current.node)
-                                # lastIndex = robot.path[::-1].index(current.node, current.dist, link.dist)
-                            except:
-                                lastIndex = -1
-                            
-                            for j in range(index+1, len(robot.path)):
-                                if robot.path[j] != current.node:
-                                    print("J:" + str(j) + " LastI:" + str(lastIndex))
-                                    dijkNodes.append(dijkstraNode(current.node, j, current.previous))
-                                    link.previous = dijkNodes[-1]
-                                    current = current.previous
-                                    intersect = True
-                                    print("in da way")
-                                    break
-            if intersect:
-                print("found da way")
+                            # print("in da way: " + str(current.node) + " at" + str(lastIndex) + "\tPr:" + str(current.previous.node))
+                            # print(robot.path[lastIndex])
+                            # sleep(1)
+
+                            dijkNodes.append(dijkstraNode(current.node, lastIndex+2, current.previous))
+                            dijkNodes.remove(link)
+
+                            current = current.previous
+                            intersect = True
+                            break
+
+            # if intersect:
+            #     print("found da way")
 
 
 
@@ -237,34 +230,29 @@ grid.addObstacle((1,1))
 grid.addObstacle((3,0))
 grid.addObstacle((4,1))
 grid.addObstacle((4,4))
+grid.addObstacle((6,4))
+grid.addObstacle((1,2))
+grid.addObstacle((1,3))
+grid.addObstacle((1,4))
+grid.addObstacle((4,3))
+grid.addObstacle((2,5))
 grid.addObstacle((6,3))
-
+grid.addObstacle((5,1))
 
 robots = []
 
-positions = [(0,4),(0,3),(0,2),(1,2),(2,2),(2,1),(3,1)]
-robots.append(Robot(positions, grid))
 
-positions = [(1,4),(1,3),(1,3),(0,3),(0,2),(1,2)]
-robots.append(Robot(positions, grid))
-
-# positions = [(8,2),(7,2),(6,2),(5,2),(4,2),(3,2),(2,2)]
-# robots.append(Robot(positions, grid))
-positions = [(8,2),(7,2),(6,2),(5,2),(4,2),(3,2)]
-robots.append(Robot(positions, grid))
+robots.append(Robot(findPath(robots, grid.getNode((0,0)), grid.getNode((9,0)))))
+robots.append(Robot(findPath(robots, grid.getNode((9,0)), grid.getNode((0,9)))))
+robots.append(Robot(findPath(robots, grid.getNode((0,9)), grid.getNode((9,9)))))
+robots.append(Robot(findPath(robots, grid.getNode((9,9)), grid.getNode((0,0)))))
 
 
-robots.append(Robot(findPath(robots, grid.getNode((0,0)), grid.getNode((5,5)))))
-
-
-for robot in robots:
-    print(robot.path)
+for i, robot in enumerate(robots):
+    print("Robot " + str(i) + ": " + str(robot.path))
 
 print(robots)
 
-
-# robots.append(Robot())
-# robots[1].path = findPath(grid, (0,1), (5,4))
 
 
 
@@ -274,6 +262,17 @@ print(robots)
 
 #--------------------------------------------------------------
 # old test code
+
+# positions = [(0,4),(0,3),(0,2),(1,2),(2,2),(2,1),(3,1)]
+# robots.append(Robot(positions, grid))
+
+# positions = [(1,4),(1,3),(1,3),(0,3),(0,2),(1,2)]
+# robots.append(Robot(positions, grid))
+
+# # positions = [(8,2),(7,2),(6,2),(5,2),(4,2),(3,2),(2,2)]
+# positions = [(8,2),(7,2),(6,2),(5,2),(4,2),(3,2)]
+# robots.append(Robot(positions, grid))
+
 
 # for node in grid.nodes:
 #     print(node.pos)
