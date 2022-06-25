@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>        
+        
+        <div>        
+            <canvas id="theCanvas" width="200" height="200" top="0" style="background-color: cornflowerblue">
+            </canvas>
+            <div class="robot" id="robot_1"></div>
+            <div class="robot" id="robot_2"></div>
+            <div class="robot" id="robot_3"></div>
+            <div class="robot" id="robot_4"></div>
+            <pre id="data"></pre>
+        </div>        
+        
+
+        
+        <script>
+            let ws = new  WebSocket("ws://localhost:8000");
+            let counter = 0;
+            var Obstacles = new Array();
+            function  get_data () {
+               //ws.send("request_messages");
+            }
+            CanvasRenderingContext2D.prototype.clear = function(){
+                this.clearRect(0, 0, this.canvas.width, this.canvas,height);
+            }
+            ws.onmessage = function(message) {
+                let data = JSON.parse(message.data);
+                console.log('Message Received', message.data);
+                var a = document.getElementById("robot_ID").value;
+                let elm1 = document.getElementById("robot_1");
+                let elm2 = document.getElementById("robot_2");
+                let elm3 = document.getElementById("robot_3");
+                let elm4 = document.getElementById("robot_4");
+                let obs = document.getElementById("obstacle");
+                let canvas = document.getElementById("theCanvas");
+                var context = canvas.getContext("2d");
+                if (a == "robot_1"){
+                    ws.send("robot 1 moves")
+                    document.getElementById("robot_1").style.backgroundColor = 'red';
+                    console.log(elm1)
+                    console.log(data)
+                    elm1.style.top = `${8 + data.Coordinates[0]*20}px`;
+                    elm1.style.left = `${8 + data.Coordinates[1]*20}px`;
+
+                }
+                else if (a == "robot_2"){             
+                    ws.send("robot 2 moves")
+                    document.getElementById("robot_2").style.backgroundColor = 'yellow';
+                    console.log(elm2)
+                    console.log(data)
+                    elm2.style.top = `${8 + data.Coordinates[0]*20}px`;
+                    elm2.style.left = `${8 + data.Coordinates[1]*20}px`;
+                }
+                else if (a == "robot_3"){           
+                    ws.send("robot 3 moves")
+                    document.getElementById("robot_3").style.backgroundColor = 'green';
+                    console.log(elm3)
+                    console.log(data)
+                    elm3.style.top = `${8 + data.Coordinates[0]*20}px`;
+                    elm3.style.left = `${8 + data.Coordinates[1]*20}px`;
+                }
+                else if (a == "robot_4"){
+                    ws.send("robot 4 moves")
+                    document.getElementById("robot_4").style.backgroundColor = 'purple';
+                    console.log(elm4)
+                    console.log(data)
+                    elm4.style.top = `${8 + data.Coordinates[0]*20}px`;
+                    elm4.style.left = `${8 + data.Coordinates[1]*20}px`;
+                }
+                else if (a == "obstacle"){
+                    ws.send('obs');
+                    console.log(obs)
+                    console.log(data)
+                    context.fillStyle = "darkblue";
+                    context.fillRect(data.Coordinates[0]*20, data.Coordinates[1]*20, 20, 20);
+                }
+            }
+
+            setInterval(get_data , 1000);
+        </script>
+
+
+
+        <script>
+            
+    
+            let context = document.getElementById("theCanvas").getContext("2d");
+    
+            function draw(){
+                context.fillStyle = "darkblue";
+                context.drawBlock(3, 4);
+            }
+        </script>
+
+    <br>
+
+    <div id = "inputFields">
+        <input type="text" id="robot_ID" size="10" placeholder="robot_ID">
+        <input  type="text" id="CoordinateX" size="1" placeholder = "x">
+        <input  type="text" id="CoordinateY" size="1"  placeholder = "y">
+        <button  onclick="sendCommand()"> Send </button >
+    </div>
+    <br>
+
+    <div id = "remove">
+            <input type="text" id="index" size="7" placeholder="ID">
+            <button onclick="removeFromQueue()"> Remove </button>
+    </div>
+    <br>
+
+    <div id = "killSwitch">
+        <input type="text" id="robot_ID-kill" size="7" placeholder="robot_ID">
+        <button onclick="killSwitch()"> Noodstop </button>
+    </div>
+
+    <script>
+        var array = [];
+        function printArray(){
+            document.getElementById("data").innerHTML = JSON.stringify(array, null, 2);
+        }
+
+        function removeFromQueue(){
+            let index = parseInt(document.getElementById("index").value);
+            let message = array[index]
+            delete array[index]
+
+            var filtered = array.filter(function (elm){
+                return elm != null;
+            });
+            array = filtered;
+            printArray();
+            message = JSON.stringify(message)
+            message = JSON.parse(message)
+            sendData = {
+                'command': 'delete',
+                'index' : index,
+                'robot_ID': message["robot_ID"],
+                'position' : message["position"],
+            }
+
+            ws.send(JSON.stringify(sendData));
+        }
+
+        function killSwitch(){
+            let robot_ID = document.getElementById("robot_ID-kill").value;
+            console.log(robot_ID);
+            sendData =  {
+                            'command' : 'noodstop',
+                            'robot_ID': robot_ID,
+                            'position': null,
+                        }
+
+            ws.send(JSON.stringify(sendData));
+        }
+
+        function sendCommand() {
+            let CoordinateX = parseInt(document.getElementById("CoordinateX").value);
+            let CoordinateY = parseInt(document.getElementById("CoordinateY").value);
+            let robot_ID = document.getElementById("robot_ID").value;
+            
+            let Coordinates = [CoordinateX, CoordinateY]
+            sendData =  {
+                            'command' : 'command',
+                            'robot_ID' : robot_ID,
+                            'Coordinates' : Coordinates, 
+                        }
+            array.push(sendData);
+            printArray();
+            ws.send(JSON.stringify(sendData));
+            ws.send("test")
+        }
+    </script>
+
+    <style>
+        #data{
+            position: relative;
+            background-color: darkgrey;
+            height: 500px;
+            width: 200px;
+            top: 0px;
+            left: 300px;
+        }
+
+        .robot{
+            position: absolute;
+            background-color: transparent;
+            height: 20px;
+            width: 20px;
+            transition: 1s;
+        }
+
+    </style>
+
+    </body>
+</html>
