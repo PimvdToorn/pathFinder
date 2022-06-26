@@ -118,7 +118,10 @@ class Robot:
         self.path = []
         self.location = grid.getNode(location)
         self.goal = grid.getNode(goal)
-
+        
+    def setGoal(self, grid : Grid, goal : tuple[int,int]):
+        self.path = []
+        self.goal = grid.getNode(goal)
 
     def findPath(self, robots : list):
         self.path = []
@@ -603,10 +606,14 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
     lowestTotalCost = float("inf")
     lowestTotalSteps = float("inf")
 
-
+    # impossibleOrders = []
     for i, order in enumerate(allOrders):
 
         if count: print(f"Calculating: {i+1} of {numberOfOrders}\t{order}")
+
+        # impossible = False
+        # for impOrder in impossibleOrders:
+        #     if order[:len(impOrder)]
 
         for robotNumber in order:
             robots[robotNumber].path = []
@@ -617,7 +624,7 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
             # print(robots[robotNumber].name)
             cost = robots[robotNumber].findPath(robots)
             totalCost += cost
-            if totalCost > lowestTotalCost: break
+            if totalCost > lowestTotalCost or totalCost == float("inf"): break
             totalSteps += len(robots[robotNumber].path) - 1
         
 
@@ -659,45 +666,45 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
 
 
 
-# grid = Grid(10, 10)
+grid = Grid(10, 10)
 
-# grid.addObstacle((1,1))
-# grid.addObstacle((1,2))
-# grid.addObstacle((1,3))
-# grid.addObstacle((1,4))
-# grid.addObstacle((2,5))
-# grid.addObstacle((3,0))
-# grid.addObstacle((3,7))
-# grid.addObstacle((4,1))
-# grid.addObstacle((4,3))
-# grid.addObstacle((4,4))
-# grid.addObstacle((4,7))
-# grid.addObstacle((5,1))
-# grid.addObstacle((5,6))
-# grid.addObstacle((6,3))
-# grid.addObstacle((6,4))
-# grid.addObstacle((6,7))
-# grid.addObstacle((7,7))
+grid.addObstacle((1,1))
+grid.addObstacle((1,2))
+grid.addObstacle((1,3))
+grid.addObstacle((1,4))
+grid.addObstacle((2,5))
+grid.addObstacle((3,0))
+grid.addObstacle((3,7))
+grid.addObstacle((4,1))
+grid.addObstacle((4,3))
+grid.addObstacle((4,4))
+grid.addObstacle((4,7))
+grid.addObstacle((5,1))
+grid.addObstacle((5,6))
+grid.addObstacle((6,3))
+grid.addObstacle((6,4))
+grid.addObstacle((6,7))
+grid.addObstacle((7,7))
 
 
 
-# robots : list[Robot] = []
+robots : list[Robot] = []
 
-# robots.append(Robot("Robot(1)", 1, grid.getNode((0,0)), grid.getNode((2,3))))
-# robots.append(Robot("Robot(2)", 4, grid.getNode((7,6)), grid.getNode((2,0))))
-# robots.append(Robot("Robot(3)", 7, grid.getNode((1,5)), grid.getNode((3,2))))
-# robots.append(Robot("Robot(4)", 3, grid.getNode((6,6)), grid.getNode((4,0))))
-# robots.append(Robot("Robot(5)", 2, grid.getNode((1,0)), grid.getNode((5,0))))
-# robots.append(Robot("Robot(6)", 8, grid.getNode((3,1)), grid.getNode((5,4))))
-# robots.append(Robot("Robot(7)", 7, grid.getNode((7,2))))
-# robots.append(Robot("Robot(8)", 7, grid.getNode((2,6)), grid.getNode((5,3))))
+robots.append(Robot("Robot(1)", 1, grid.getNode((0,0)), grid.getNode((2,3))))
+robots.append(Robot("Robot(2)", 4, grid.getNode((7,6)), grid.getNode((2,0))))
+robots.append(Robot("Robot(3)", 7, grid.getNode((1,5)), grid.getNode((3,2))))
+robots.append(Robot("Robot(4)", 3, grid.getNode((6,6)), grid.getNode((4,0))))
+robots.append(Robot("Robot(5)", 2, grid.getNode((1,0)), grid.getNode((5,0))))
+robots.append(Robot("Robot(6)", 8, grid.getNode((3,1)), grid.getNode((5,4))))
+robots.append(Robot("Robot(7)", 7, grid.getNode((7,2))))
+robots.append(Robot("Robot(8)", 7, grid.getNode((2,6)), grid.getNode((5,3))))
 # robots.append(Robot("Robot(9)", 7, grid.getNode((7,3)), grid.getNode((4,5))))
 # robots.append(Robot("Robot(7)", 7, grid.getNode((5,0))))
 
 
-# start = time()
-# robots = calculateBestPaths(robots, True)
-# print(f"Duration: {time() - start:.3f} seconds")
+start = time()
+robots = calculateBestPaths(robots, True)
+print(f"Duration: {time() - start:.3f} seconds")
 # print(robots)
 
 
