@@ -104,7 +104,7 @@ class Robot:
     def setPath(self, path : list[Node]):
         self.path = path
 
-    def setPositions(self, positions : list[tuple[int,int]]):
+    def setPositions(self, grid : Grid, positions : list[tuple[int,int]]):
         for pos in positions:
             self.path.append(grid.getNode(pos))
 
@@ -129,7 +129,7 @@ class Robot:
         return (len(self.path) - 1) * self.cost
 
 
-def newPrevious(dijkNodes : list[dijkstraNode], unlinkedNode : dijkstraNode):
+def newPrevious(robots : list[Robot], dijkNodes : list[dijkstraNode], unlinkedNode : dijkstraNode):
 
     for dNode in dijkNodes:
         if dNode.node in unlinkedNode.node.links:
@@ -292,7 +292,7 @@ def findPath(robots : list[Robot], start : Node, goal : Node):
             if current.node == None: return []
 
             noPrevious = current.previous == None and current.dist != 0
-            if noPrevious: noPrevious = not newPrevious(dijkNodes, current)
+            if noPrevious: noPrevious = not newPrevious(robots, dijkNodes, current)
             if noPrevious: dijkNodes.remove(current)
        
 
@@ -691,14 +691,14 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
 # robots.append(Robot("Robot(6)", 8, grid.getNode((3,1)), grid.getNode((5,4))))
 # robots.append(Robot("Robot(7)", 7, grid.getNode((7,2))))
 # robots.append(Robot("Robot(8)", 7, grid.getNode((2,6)), grid.getNode((5,3))))
-# # robots.append(Robot("Robot(9)", 7, grid.getNode((7,3)), grid.getNode((4,5))))
-# # robots.append(Robot("Robot(7)", 7, grid.getNode((5,0))))
+# robots.append(Robot("Robot(9)", 7, grid.getNode((7,3)), grid.getNode((4,5))))
+# robots.append(Robot("Robot(7)", 7, grid.getNode((5,0))))
 
 
 # start = time()
 # robots = calculateBestPaths(robots, True)
 # print(f"Duration: {time() - start:.3f} seconds")
-# # # print(robots)
+# print(robots)
 
 
 
