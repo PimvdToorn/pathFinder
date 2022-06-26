@@ -87,8 +87,6 @@ class Robot:
         self.location = location
         self.goal = goal
         self.path : list[tuple] = []
-        # if goal == None: self.path.append(location)
-        # self.path : list[tuple] = [location]
     
     def __str__(self):
         steps = (len(self.path) - 1)
@@ -106,7 +104,7 @@ class Robot:
     def setPath(self, path : list[Node]):
         self.path = path
 
-    def setPositions(self, positions : list[(int,int)]):
+    def setPositions(self, positions : list[tuple[int,int]]):
         for pos in positions:
             self.path.append(grid.getNode(pos))
 
@@ -115,6 +113,12 @@ class Robot:
         for node in self.path:
             positions.append(node.pos)
         return positions
+
+    def setLocationAndGoal(self, grid : Grid, location : tuple[int,int], goal : tuple[int,int] = None):
+        self.path = []
+        self.location = grid.getNode(location)
+        self.goal = grid.getNode(goal)
+
 
     def findPath(self, robots : list):
         self.path = []
@@ -540,6 +544,9 @@ def findPath(robots : list[Robot], start : Node, goal : Node):
     return path
 
 
+
+
+
 def checkPathsPossibility(robots : list[Robot]):
     for robot in robots:
         for otherBot in robots:
@@ -589,8 +596,6 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
     order = [*range(dontMove, len(robots))]
 
     allOrders = list(permutations(order))
-    # allOrders = [(3, 2, 1, 4, 5, 6, 7)]
-    # allOrders = [(1, 2, 3, 4, 5, 6, 7)]
 
     if count: numberOfOrders = len(allOrders)
     elif verbose: print(f"Number of calculations to do: {len(allOrders)}")
@@ -617,7 +622,7 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
             totalSteps += len(robots[robotNumber].path) - 1
         
 
-        if (totalCost < lowestTotalCost or (totalCost == lowestTotalCost and totalSteps < lowestTotalSteps)) and totalCost != float("inf") and checkPathsPossibility(robots):
+        if (totalCost < lowestTotalCost or (totalCost == lowestTotalCost and totalSteps < lowestTotalSteps)) and totalCost != float("inf"): # and checkPathsPossibility(robots):
             # print(f"Total cost: {totalCost} vs lowest: {lowestTotalCost}\tTotal steps: {totalSteps} vs lowest: {lowestTotalSteps}")
             lowestTotalCost = totalCost
             lowestTotalSteps = totalSteps
@@ -691,12 +696,10 @@ robots.append(Robot("Robot(8)", 7, grid.getNode((2,6)), grid.getNode((5,3))))
 # robots.append(Robot("Robot(7)", 7, grid.getNode((5,0))))
 
 
-start = time()
-robots = calculateBestPaths(robots, True)
-print(f"Duration: {time() - start:.3f} seconds")
+# start = time()
+# robots = calculateBestPaths(robots, True)
+# print(f"Duration: {time() - start:.3f} seconds")
 # # print(robots)
-
-
 
 
 
