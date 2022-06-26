@@ -596,6 +596,7 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
 
 
     order = [*range(dontMove, len(robots))]
+    orderLength = len(order)
 
     allOrders = list(permutations(order))
 
@@ -606,39 +607,68 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
     lowestTotalCost = float("inf")
     lowestTotalSteps = float("inf")
 
-    # impossibleOrders = []
+    impossibleOrders = []
+
     for i, order in enumerate(allOrders):
 
         if count: print(f"Calculating: {i+1} of {numberOfOrders}\t{order}")
 
-        # impossible = False
-        # for impOrder in impossibleOrders:
-        #     if order[:len(impOrder)]
+        impossible = False
+        # print(order)
+        for impOrder in impossibleOrders:
+            # print(f"Impossible: {impOrder}")
+            # if all(order[i] == robotNumber  for i,robotNumber  in enumerate(impOrder)):
+            #     print(f"Impossible order: {order} starts with impossible sublist: {impOrder}")
+            #     impossible = True
+            #     break
 
-        for robotNumber in order:
-            robots[robotNumber].path = []
+            impossible = True
+            for i, robotNumber in enumerate(impOrder):
+                if order[i] > robotNumber:
+                    impossibleOrders.remove(impOrder)
+                    # print(f"Removed impossible order: {impOrder}")
+                    impossible = False
+                    break
+                if order[i] != robotNumber:
+                    impossible = False
+                    break
+            if impossible: 
+                # print(f"Impossible order: {order} starts with impossible sublist: {impOrder}")
+                break
+                
 
-        totalCost = 0
-        totalSteps = 0
-        for robotNumber in order:
-            # print(robots[robotNumber].name)
-            cost = robots[robotNumber].findPath(robots)
-            totalCost += cost
-            if totalCost > lowestTotalCost or totalCost == float("inf"): break
-            totalSteps += len(robots[robotNumber].path) - 1
-        
-
-        if (totalCost < lowestTotalCost or (totalCost == lowestTotalCost and totalSteps < lowestTotalSteps)) and totalCost != float("inf") and checkPathsPossibility(robots):
-            # print(f"Total cost: {totalCost} vs lowest: {lowestTotalCost}\tTotal steps: {totalSteps} vs lowest: {lowestTotalSteps}")
-            lowestTotalCost = totalCost
-            lowestTotalSteps = totalSteps
-
-            bestRobotOrder = bestRobotOrder[0:dontMove]
-
+        if not impossible:
             for robotNumber in order:
-                bestRobotOrder.append(copy(robots[robotNumber]))
+                robots[robotNumber].path = []
+
+            totalCost = 0
+            totalSteps = 0
+            currentCalculatedOrder = []
+            for robotNumber in order:
+                # print(robots[robotNumber].name)
+                cost = robots[robotNumber].findPath(robots)
+                totalCost += cost
+                currentCalculatedOrder.append(robotNumber)
+
+                if totalCost > lowestTotalCost or totalCost == float("inf"): 
+                    if len(currentCalculatedOrder) < orderLength:
+                        # print(f"Found impossible order: {currentCalculatedOrder}")
+                        impossibleOrders.append(currentCalculatedOrder)
+                    break
+                totalSteps += len(robots[robotNumber].path) - 1
             
-            # print(bestRobotOrder)
+
+            if (totalCost < lowestTotalCost or (totalCost == lowestTotalCost and totalSteps < lowestTotalSteps)) and totalCost != float("inf") and checkPathsPossibility(robots):
+                # print(f"Total cost: {totalCost} vs lowest: {lowestTotalCost}\tTotal steps: {totalSteps} vs lowest: {lowestTotalSteps}")
+                lowestTotalCost = totalCost
+                lowestTotalSteps = totalSteps
+
+                bestRobotOrder = bestRobotOrder[0:dontMove]
+
+                for robotNumber in order:
+                    bestRobotOrder.append(copy(robots[robotNumber]))
+                
+                # print(bestRobotOrder)
 
 
     bestRobotOrder
@@ -666,45 +696,45 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
 
 
 
-grid = Grid(10, 10)
+# grid = Grid(10, 10)
 
-grid.addObstacle((1,1))
-grid.addObstacle((1,2))
-grid.addObstacle((1,3))
-grid.addObstacle((1,4))
-grid.addObstacle((2,5))
-grid.addObstacle((3,0))
-grid.addObstacle((3,7))
-grid.addObstacle((4,1))
-grid.addObstacle((4,3))
-grid.addObstacle((4,4))
-grid.addObstacle((4,7))
-grid.addObstacle((5,1))
-grid.addObstacle((5,6))
-grid.addObstacle((6,3))
-grid.addObstacle((6,4))
-grid.addObstacle((6,7))
-grid.addObstacle((7,7))
+# grid.addObstacle((1,1))
+# grid.addObstacle((1,2))
+# grid.addObstacle((1,3))
+# grid.addObstacle((1,4))
+# grid.addObstacle((2,5))
+# grid.addObstacle((3,0))
+# grid.addObstacle((3,7))
+# grid.addObstacle((4,1))
+# grid.addObstacle((4,3))
+# grid.addObstacle((4,4))
+# grid.addObstacle((4,7))
+# grid.addObstacle((5,1))
+# grid.addObstacle((5,6))
+# grid.addObstacle((6,3))
+# grid.addObstacle((6,4))
+# grid.addObstacle((6,7))
+# grid.addObstacle((7,7))
 
 
 
-robots : list[Robot] = []
+# robots : list[Robot] = []
 
-robots.append(Robot("Robot(1)", 1, grid.getNode((0,0)), grid.getNode((2,3))))
-robots.append(Robot("Robot(2)", 4, grid.getNode((7,6)), grid.getNode((2,0))))
-robots.append(Robot("Robot(3)", 7, grid.getNode((1,5)), grid.getNode((3,2))))
-robots.append(Robot("Robot(4)", 3, grid.getNode((6,6)), grid.getNode((4,0))))
-robots.append(Robot("Robot(5)", 2, grid.getNode((1,0)), grid.getNode((5,0))))
-robots.append(Robot("Robot(6)", 8, grid.getNode((3,1)), grid.getNode((5,4))))
-robots.append(Robot("Robot(7)", 7, grid.getNode((7,2))))
-robots.append(Robot("Robot(8)", 7, grid.getNode((2,6)), grid.getNode((5,3))))
+# robots.append(Robot("Robot(1)", 1, grid.getNode((0,0)), grid.getNode((2,3))))
+# robots.append(Robot("Robot(2)", 4, grid.getNode((7,6)), grid.getNode((2,0))))
+# robots.append(Robot("Robot(3)", 7, grid.getNode((1,5)), grid.getNode((3,2))))
+# robots.append(Robot("Robot(4)", 3, grid.getNode((6,6)), grid.getNode((4,0))))
+# robots.append(Robot("Robot(5)", 2, grid.getNode((1,0)), grid.getNode((5,0))))
+# robots.append(Robot("Robot(6)", 8, grid.getNode((3,1)), grid.getNode((5,4))))
+# robots.append(Robot("Robot(7)", 7, grid.getNode((7,2))))
+# robots.append(Robot("Robot(8)", 7, grid.getNode((2,6)), grid.getNode((5,3))))
 # robots.append(Robot("Robot(9)", 7, grid.getNode((7,3)), grid.getNode((4,5))))
 # robots.append(Robot("Robot(7)", 7, grid.getNode((5,0))))
 
 
-start = time()
-robots = calculateBestPaths(robots, True)
-print(f"Duration: {time() - start:.3f} seconds")
+# start = time()
+# robots = calculateBestPaths(robots, True)
+# print(f"Duration: {time() - start:.3f} seconds")
 # print(robots)
 
 
