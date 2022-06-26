@@ -125,7 +125,6 @@ class Robot:
         self.path = findPath(robots, self.location, self.goal)
 
         if self.path == []: 
-            # print("No path")
             return float("inf")
         return (len(self.path) - 1) * self.cost
 
@@ -622,7 +621,7 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
             totalSteps += len(robots[robotNumber].path) - 1
         
 
-        if (totalCost < lowestTotalCost or (totalCost == lowestTotalCost and totalSteps < lowestTotalSteps)) and totalCost != float("inf"): # and checkPathsPossibility(robots):
+        if (totalCost < lowestTotalCost or (totalCost == lowestTotalCost and totalSteps < lowestTotalSteps)) and totalCost != float("inf") and checkPathsPossibility(robots):
             # print(f"Total cost: {totalCost} vs lowest: {lowestTotalCost}\tTotal steps: {totalSteps} vs lowest: {lowestTotalSteps}")
             lowestTotalCost = totalCost
             lowestTotalSteps = totalSteps
@@ -660,46 +659,46 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
 
 
 
-grid = Grid(10, 10)
+# grid = Grid(10, 10)
 
-grid.addObstacle((1,1))
-grid.addObstacle((1,2))
-grid.addObstacle((1,3))
-grid.addObstacle((1,4))
-grid.addObstacle((2,5))
-grid.addObstacle((3,0))
-grid.addObstacle((3,7))
-grid.addObstacle((4,1))
-grid.addObstacle((4,3))
-grid.addObstacle((4,4))
-grid.addObstacle((4,7))
-grid.addObstacle((5,1))
-grid.addObstacle((5,6))
-grid.addObstacle((6,3))
-grid.addObstacle((6,4))
-grid.addObstacle((6,7))
-grid.addObstacle((7,7))
+# grid.addObstacle((1,1))
+# grid.addObstacle((1,2))
+# grid.addObstacle((1,3))
+# grid.addObstacle((1,4))
+# grid.addObstacle((2,5))
+# grid.addObstacle((3,0))
+# grid.addObstacle((3,7))
+# grid.addObstacle((4,1))
+# grid.addObstacle((4,3))
+# grid.addObstacle((4,4))
+# grid.addObstacle((4,7))
+# grid.addObstacle((5,1))
+# grid.addObstacle((5,6))
+# grid.addObstacle((6,3))
+# grid.addObstacle((6,4))
+# grid.addObstacle((6,7))
+# grid.addObstacle((7,7))
 
 
 
-robots : list[Robot] = []
+# robots : list[Robot] = []
 
-robots.append(Robot("Robot(1)", 1, grid.getNode((0,0)), grid.getNode((2,3))))
-robots.append(Robot("Robot(2)", 4, grid.getNode((7,6)), grid.getNode((2,0))))
-robots.append(Robot("Robot(3)", 7, grid.getNode((1,5)), grid.getNode((3,2))))
-robots.append(Robot("Robot(4)", 3, grid.getNode((6,6)), grid.getNode((4,0))))
-robots.append(Robot("Robot(5)", 2, grid.getNode((1,0)), grid.getNode((5,0))))
-robots.append(Robot("Robot(6)", 8, grid.getNode((3,1)), grid.getNode((5,4))))
-robots.append(Robot("Robot(7)", 7, grid.getNode((7,2))))
-robots.append(Robot("Robot(8)", 7, grid.getNode((2,6)), grid.getNode((5,3))))
-# robots.append(Robot("Robot(9)", 7, grid.getNode((7,3)), grid.getNode((4,5))))
-# robots.append(Robot("Robot(7)", 7, grid.getNode((5,0))))
+# robots.append(Robot("Robot(1)", 1, grid.getNode((0,0)), grid.getNode((2,3))))
+# robots.append(Robot("Robot(2)", 4, grid.getNode((7,6)), grid.getNode((2,0))))
+# robots.append(Robot("Robot(3)", 7, grid.getNode((1,5)), grid.getNode((3,2))))
+# robots.append(Robot("Robot(4)", 3, grid.getNode((6,6)), grid.getNode((4,0))))
+# robots.append(Robot("Robot(5)", 2, grid.getNode((1,0)), grid.getNode((5,0))))
+# robots.append(Robot("Robot(6)", 8, grid.getNode((3,1)), grid.getNode((5,4))))
+# robots.append(Robot("Robot(7)", 7, grid.getNode((7,2))))
+# robots.append(Robot("Robot(8)", 7, grid.getNode((2,6)), grid.getNode((5,3))))
+# # robots.append(Robot("Robot(9)", 7, grid.getNode((7,3)), grid.getNode((4,5))))
+# # robots.append(Robot("Robot(7)", 7, grid.getNode((5,0))))
 
 
 # start = time()
 # robots = calculateBestPaths(robots, True)
 # print(f"Duration: {time() - start:.3f} seconds")
-# # print(robots)
+# # # print(robots)
 
 
 
@@ -709,187 +708,187 @@ robots.append(Robot("Robot(8)", 7, grid.getNode((2,6)), grid.getNode((5,3))))
 
 
 
-# # robots.append(Robot("Robot(7)", 7, grid.getNode((7,2))))
-# # robots.append(Robot("Robot(3)", 7, grid.getNode((1,5)), grid.getNode((3,2))))
-# robots.append(Robot("Robot(6)", 8, grid.getNode((3,1)), grid.getNode((5,4))))
-# robots.append(Robot("Robot(4)", 3, grid.getNode((6,6)), grid.getNode((4,0))))
-# # robots.append(Robot("Robot(2)", 4, grid.getNode((7,6)), grid.getNode((2,0))))
-# # robots.append(Robot("Robot(1)", 1, grid.getNode((0,0)), grid.getNode((2,3))))
-# robots.append(Robot("Robot(5)", 2, grid.getNode((1,0)), grid.getNode((5,0))))
-# robots.append(Robot("Robot(8)", 7, grid.getNode((2,6)), grid.getNode((5,3))))
+# # # robots.append(Robot("Robot(7)", 7, grid.getNode((7,2))))
+# # # robots.append(Robot("Robot(3)", 7, grid.getNode((1,5)), grid.getNode((3,2))))
+# # robots.append(Robot("Robot(6)", 8, grid.getNode((3,1)), grid.getNode((5,4))))
+# # robots.append(Robot("Robot(4)", 3, grid.getNode((6,6)), grid.getNode((4,0))))
+# # # robots.append(Robot("Robot(2)", 4, grid.getNode((7,6)), grid.getNode((2,0))))
+# # # robots.append(Robot("Robot(1)", 1, grid.getNode((0,0)), grid.getNode((2,3))))
+# # robots.append(Robot("Robot(5)", 2, grid.getNode((1,0)), grid.getNode((5,0))))
+# # robots.append(Robot("Robot(8)", 7, grid.getNode((2,6)), grid.getNode((5,3))))
 
 
-# for robot in robots:
-#     if robot.goal == None: 
-#         robot.path = [robot.location]
-#         robots.remove(robot)
-#         robots = [robot] + robots
+# # for robot in robots:
+# #     if robot.goal == None: 
+# #         robot.path = [robot.location]
+# #         robots.remove(robot)
+# #         robots = [robot] + robots
 
-# allPaths : list[list[Node]] = []
-# totalSteps = 0
-# totalCost = 0
+# # allPaths : list[list[Node]] = []
+# # totalSteps = 0
+# # totalCost = 0
 
-# for robot in robots:
-#     # print("--------------------------------------")
-#     if robot.goal != None:
-#         cost = robot.findPath(robots)
-#         totalCost += cost
+# # for robot in robots:
+# #     # print("--------------------------------------")
+# #     if robot.goal != None:
+# #         cost = robot.findPath(robots)
+# #         totalCost += cost
 
-#         steps = (len(robot.path) - 1)
-#         totalSteps += steps
-#     else:
-#         robot.path = [robot.location]
-#         cost = 0
-#         steps = 0
+# #         steps = (len(robot.path) - 1)
+# #         totalSteps += steps
+# #     else:
+# #         robot.path = [robot.location]
+# #         cost = 0
+# #         steps = 0
 
-#     allPaths.append(robot.path)
+# #     allPaths.append(robot.path)
 
-#     if cost != float("inf"):
-#         print(f"{robot.name:8s} cost{cost:-4d} | steps{steps:-3d}: {robot.path}")
-#     else:
-#         print(f"{robot.name:8s} cost{cost} | steps{steps:-3d}: {robot.path}")
-
-
-# print(f"Total steps:\t{totalSteps}")
-# print(f"Total cost: \t{totalCost}")
-# # print(robots)
+# #     if cost != float("inf"):
+# #         print(f"{robot.name:8s} cost{cost:-4d} | steps{steps:-3d}: {robot.path}")
+# #     else:
+# #         print(f"{robot.name:8s} cost{cost} | steps{steps:-3d}: {robot.path}")
 
 
-
-
-# print(allPaths)
-
-# steps = list(zip(*allPaths))
-
-# steps = np.array(allPaths).T
-
-# longest = 0
-# for robot in robots:
-#     longest = max(longest, len(robot.path))
-
-# error = False
-
-# for robot in robots:
-#     for otherBot in robots:
-#         if otherBot != robot:
-#             length = len(otherBot.path)
-
-#             for i, node in enumerate(robot.path):
-#                 if  length <= i and otherBot.path[-1] == node:
-#                     print(f"Collision {robot.name} step:{i} with {otherBot.name} step:{i-1} at node {node}")
-#                     error = True
-#                     break
-#                 if length > i and otherBot.path[i] == node:
-#                     print(f"Collision {robot.name} step:{i} with {otherBot.name} step:{i} at node {node}")
-#                     error = True
-#                     break
-#                 if length > i + 1 and otherBot.path[i + 1] == node:
-#                     print(f"Collision {robot.name} step:{i} with {otherBot.name} step:{i+1} at node {node}")
-#                     error = True
-#                     break
-#         if error: break
-#     if error: break
+# # print(f"Total steps:\t{totalSteps}")
+# # print(f"Total cost: \t{totalCost}")
+# # # print(robots)
 
 
 
-# steps : list[list[Node]] = []
-# for i in range(longest):
-#     steps.append([])
-#     for robot in robots:
-#         if len(robot.path) > i: steps[i].append(robot.path[i])
 
-# for i, step in enumerate(steps):
-#     stepList = []
-#     if i > 0: 
+# # print(allPaths)
+
+# # steps = list(zip(*allPaths))
+
+# # steps = np.array(allPaths).T
+
+# # longest = 0
+# # for robot in robots:
+# #     longest = max(longest, len(robot.path))
+
+# # error = False
+
+# # for robot in robots:
+# #     for otherBot in robots:
+# #         if otherBot != robot:
+# #             length = len(otherBot.path)
+
+# #             for i, node in enumerate(robot.path):
+# #                 if  length <= i and otherBot.path[-1] == node:
+# #                     print(f"Collision {robot.name} step:{i} with {otherBot.name} step:{i-1} at node {node}")
+# #                     error = True
+# #                     break
+# #                 if length > i and otherBot.path[i] == node:
+# #                     print(f"Collision {robot.name} step:{i} with {otherBot.name} step:{i} at node {node}")
+# #                     error = True
+# #                     break
+# #                 if length > i + 1 and otherBot.path[i + 1] == node:
+# #                     print(f"Collision {robot.name} step:{i} with {otherBot.name} step:{i+1} at node {node}")
+# #                     error = True
+# #                     break
+# #         if error: break
+# #     if error: break
 
 
-    # print(F"Step {i}: {step}")
+
+# # steps : list[list[Node]] = []
+# # for i in range(longest):
+# #     steps.append([])
+# #     for robot in robots:
+# #         if len(robot.path) > i: steps[i].append(robot.path[i])
+
+# # for i, step in enumerate(steps):
+# #     stepList = []
+# #     if i > 0: 
 
 
-
+#     # print(F"Step {i}: {step}")
 
 
 
 
 
-#--------------------------------------------------------------
-# old test code
 
 
 
-# positions = [(1,4),(1,3),(1,3),(0,3),(0,2),(1,2)]
-# robots.append(Robot(positions, grid))
+# #--------------------------------------------------------------
+# # old test code
 
 
 
-# for node in grid.nodes:
-#     print(node.pos)
-
-# print("Links of (3, 1): ")
-
-# for link in grid.getNode((3, 1)).links:
-#     print(link.pos)
+# # positions = [(1,4),(1,3),(1,3),(0,3),(0,2),(1,2)]
+# # robots.append(Robot(positions, grid))
 
 
-#----------------
 
-# start = time()
+# # for node in grid.nodes:
+# #     print(node.pos)
+
+# # print("Links of (3, 1): ")
+
+# # for link in grid.getNode((3, 1)).links:
+# #     print(link.pos)
 
 
-# order = [*range(len(robots))]
+# #----------------
 
-# allOrders = list(permutations(order))
+# # start = time()
 
-# lowestTotalCost = float("inf")
-# lowestTotalSteps = float("inf")
-# bestRobotOrder = []
 
-# numberOfOrders = len(allOrders)
+# # order = [*range(len(robots))]
 
-# for i, order in enumerate(allOrders):
-#     # print(f"Calculating: {i+1} of {numberOfOrders}")
+# # allOrders = list(permutations(order))
 
-#     for robot in robots:
-#         robot.path = []
+# # lowestTotalCost = float("inf")
+# # lowestTotalSteps = float("inf")
+# # bestRobotOrder = []
 
-#     totalCost = 0
-#     totalSteps = 0
-#     for robotNumber in order:
+# # numberOfOrders = len(allOrders)
 
-#         cost = robots[robotNumber].findPath(robots)
-#         totalCost += cost
-#         totalSteps += len(robots[robotNumber].path) - 1
+# # for i, order in enumerate(allOrders):
+# #     # print(f"Calculating: {i+1} of {numberOfOrders}")
+
+# #     for robot in robots:
+# #         robot.path = []
+
+# #     totalCost = 0
+# #     totalSteps = 0
+# #     for robotNumber in order:
+
+# #         cost = robots[robotNumber].findPath(robots)
+# #         totalCost += cost
+# #         totalSteps += len(robots[robotNumber].path) - 1
     
-#     # print(allcosts)
-#     # print(f"Totalcost: {totalCost}\tLowestcost: {lowestTotalCost}")
+# #     # print(allcosts)
+# #     # print(f"Totalcost: {totalCost}\tLowestcost: {lowestTotalCost}")
 
-#     if totalCost < lowestTotalCost or (totalCost == lowestTotalCost and totalSteps < lowestTotalSteps):
-#         lowestTotalCost = totalCost
-#         lowestTotalSteps = lowestTotalSteps
+# #     if totalCost < lowestTotalCost or (totalCost == lowestTotalCost and totalSteps < lowestTotalSteps):
+# #         lowestTotalCost = totalCost
+# #         lowestTotalSteps = lowestTotalSteps
 
-#         bestRobotOrder = []
-#         for robotNumber in order:
-#             bestRobotOrder.append(copy(robots[robotNumber]))
-
-
-# end = time()
-
-# print(f"Duration: {end - start:.2f} seconds")
+# #         bestRobotOrder = []
+# #         for robotNumber in order:
+# #             bestRobotOrder.append(copy(robots[robotNumber]))
 
 
-# steps = 0
-# totalCost = 0
-# for robot in bestRobotOrder:
-#     cost = (len(robot.path) - 1) * robot.cost
-#     totalCost += cost
-#     steps += (len(robot.path) - 1)
-#     print(robot.name + " " + str(cost) + ": " + str(robot.path))
+# # end = time()
 
-# print(f"Total steps:\t{steps}")
-# print(f"Total cost: \t{totalCost}")
+# # print(f"Duration: {end - start:.2f} seconds")
 
 
-# print(bestRobotOrder)
+# # steps = 0
+# # totalCost = 0
+# # for robot in bestRobotOrder:
+# #     cost = (len(robot.path) - 1) * robot.cost
+# #     totalCost += cost
+# #     steps += (len(robot.path) - 1)
+# #     print(robot.name + " " + str(cost) + ": " + str(robot.path))
+
+# # print(f"Total steps:\t{steps}")
+# # print(f"Total cost: \t{totalCost}")
+
+
+# # print(bestRobotOrder)
 
 
 
