@@ -4,103 +4,97 @@
         <meta charset="utf-8">
         <title></title>
     </head>
-    <body>        
-        
-        <div>        
+    <body>
+        <div>
             <canvas id="theCanvas" width="200" height="200" top="0" style="background-color: cornflowerblue">
             </canvas>
-            <div class="robot" id="robot_1"></div>
-            <div class="robot" id="robot_2"></div>
-            <div class="robot" id="robot_3"></div>
-            <div class="robot" id="robot_4"></div>
-            <pre id="data"></pre>
-        </div>        
-        
+            <div class="robot" id="robot1"></div>
+            <div class="robot" id="robot2"></div>
+            <div class="robot" id="robot3"></div>
+            <div class="robot" id="robot4"></div>
 
-        
+            <div class="obj1" id="obj1"></div>
+            <div class="obj2" id="obj2"></div>
+            <div class="obj3" id="obj3"></div>
+            <div class="obj4" id="obj4"></div>
+            <div class="obj5" id="obj5"></div>
+            <div class="obj6" id="obj6"></div>
+            <div class="obj7" id="obj7"></div>
+            <div class="obj8" id="obj8"></div>
+            <div class="obj9" id="obj9"></div>
+            <div class="obj10" id="obj10"></div>
+            <div class="obj11" id="obj11"></div>
+            <div class="obj12" id="obj12"></div>
+            <div class="obj13" id="obj13"></div>
+
+            <pre id="data"></pre>
+        </div>      
         <script>
-            let ws = new  WebSocket("ws://localhost:8000");
-            let counter = 0;
             var Obstacles = new Array();
+            let ws = new  WebSocket("ws://localhost:8000");
             function  get_data () {
-               //ws.send("request_messages");
+                sendData =  {
+                    'command' : 'Robot-position'
+                } 
+                ws.send(JSON.stringify(sendData));
             }
             CanvasRenderingContext2D.prototype.clear = function(){
                 this.clearRect(0, 0, this.canvas.width, this.canvas,height);
             }
             ws.onmessage = function(message) {
-                let data = JSON.parse(message.data);
-                console.log('Message Received', message.data);
-                var a = document.getElementById("robot_ID").value;
-                let elm1 = document.getElementById("robot_1");
-                let elm2 = document.getElementById("robot_2");
-                let elm3 = document.getElementById("robot_3");
-                let elm4 = document.getElementById("robot_4");
-                let obs = document.getElementById("obstacle");
-                let canvas = document.getElementById("theCanvas");
-                var context = canvas.getContext("2d");
-                if (a == "robot_1"){
-                    ws.send("robot 1 moves")
-                    document.getElementById("robot_1").style.backgroundColor = 'red';
-                    console.log(elm1)
-                    console.log(data)
-                    elm1.style.top = `${8 + data.Coordinates[0]*20}px`;
-                    elm1.style.left = `${8 + data.Coordinates[1]*20}px`;
+                let  data = JSON.parse(message.data);
+                //console.log('Message Received', message.data)
+                //console.log(data)
+                if(data.MessageType == "Robot-position"){
+                    console.log("hoi ")
+                    let elm1 = document.getElementById("robot1");
+                    let elm2 = document.getElementById("robot2");
+                    let elm3 = document.getElementById("robot3");
+                    let elm4 = document.getElementById("robot4");
+                    let obs = document.getElementById("obstacle");
+                    document.getElementById("robot1").style.backgroundColor = 'red';
+                    document.getElementById("robot2").style.backgroundColor = 'yellow';
+                    document.getElementById("robot3").style.backgroundColor = 'purple';
+                    document.getElementById("robot4").style.backgroundColor = 'green';  
+                    //let elm = document.getElementById("robot1");
+                    //coole.log(elm)
+                    //console.log(data)
+                    let canvas = document.getElementById("theCanvas");
+                    console.log(Object.values(data.Robot_2)[0]);
+                    elm1.style.top = `${(9-Object.values(data.Robot_1)[1])*20+8}px`;
+                    elm1.style.left = `${8+Object.values(data.Robot_1)[0]*20}px`;
 
-                }
-                else if (a == "robot_2"){             
-                    ws.send("robot 2 moves")
-                    document.getElementById("robot_2").style.backgroundColor = 'yellow';
-                    console.log(elm2)
+                    elm2.style.top = `${(9-Object.values(data.Robot_2)[1])*20+8}px`;
+                    elm2.style.left = `${8+Object.values(data.Robot_2)[0]*20}px`;
+
+                    elm3.style.top = `${(9-Object.values(data.Robot_3)[1])*20+8}px`;
+                    elm3.style.left = `${8+Object.values(data.Robot_3)[0]*20}px`;
+
+                    elm4.style.top = `${(9-Object.values(data.Robot_4)[1])*20+8}px`;
+                    elm4.style.left = `${8+Object.values(data.Robot_4)[0]*20}px`;
+                } 
+                else if(data.MessageType == "Object-position"){
                     console.log(data)
-                    elm2.style.top = `${8 + data.Coordinates[0]*20}px`;
-                    elm2.style.left = `${8 + data.Coordinates[1]*20}px`;
-                }
-                else if (a == "robot_3"){           
-                    ws.send("robot 3 moves")
-                    document.getElementById("robot_3").style.backgroundColor = 'green';
-                    console.log(elm3)
-                    console.log(data)
-                    elm3.style.top = `${8 + data.Coordinates[0]*20}px`;
-                    elm3.style.left = `${8 + data.Coordinates[1]*20}px`;
-                }
-                else if (a == "robot_4"){
-                    ws.send("robot 4 moves")
-                    document.getElementById("robot_4").style.backgroundColor = 'purple';
-                    console.log(elm4)
-                    console.log(data)
-                    elm4.style.top = `${8 + data.Coordinates[0]*20}px`;
-                    elm4.style.left = `${8 + data.Coordinates[1]*20}px`;
-                }
-                else if (a == "obstacle"){
-                    ws.send('obs');
-                    console.log(obs)
-                    console.log(data)
-                    context.fillStyle = "darkblue";
-                    context.fillRect(data.Coordinates[0]*20, data.Coordinates[1]*20, 20, 20);
+                    for(let i=0; i < data.ObjectList.length;i++){
+                        let object_positionX = data.ObjectList[i][0]
+                        let object_positionY = data.ObjectList[i][1]
+                        let object_type = data.ObjectList[i][1]
+                        console.log(object_positionX);
+                        console.log(object_positionY);
+                        //ws.send('obs');
+                        //console.log(obs)
+                        ///console.log(data)
+                        context.fillStyle = "darkblue";
+                        context.fillRect(object_positionX*20,(9-object_positionY)*20, 20, 20);
+                    }
                 }
             }
-
-            setInterval(get_data , 1000);
+            setInterval(get_data , 200);
         </script>
-
-
-
-        <script>
-            
-    
-            let context = document.getElementById("theCanvas").getContext("2d");
-    
-            function draw(){
-                context.fillStyle = "darkblue";
-                context.drawBlock(3, 4);
-            }
-        </script>
-
     <br>
 
     <div id = "inputFields">
-        <input type="text" id="robot_ID" size="10" placeholder="robot_ID">
+        <input type="text" id="robot_ID" size="7" placeholder="robot_ID">
         <input  type="text" id="CoordinateX" size="1" placeholder = "x">
         <input  type="text" id="CoordinateY" size="1"  placeholder = "y">
         <button  onclick="sendCommand()"> Send </button >
@@ -114,11 +108,17 @@
     <br>
 
     <div id = "killSwitch">
-        <input type="text" id="robot_ID-kill" size="7" placeholder="robot_ID">
+        <input type="text" id="robot_ID" size="7" placeholder="robot_ID">
         <button onclick="killSwitch()"> Noodstop </button>
     </div>
 
     <script>
+        let context = document.getElementById("theCanvas").getContext("2d");
+    
+        function draw(){
+            context.fillStyle = "darkblue";
+            context.drawBlock(3, 4);
+        }
         var array = [];
         function printArray(){
             document.getElementById("data").innerHTML = JSON.stringify(array, null, 2);
@@ -147,11 +147,11 @@
         }
 
         function killSwitch(){
-            let robot_ID = document.getElementById("robot_ID-kill").value;
-            console.log(robot_ID);
+            let ID = document.getElementById("robot_ID").value;
+            console.log(ID);
             sendData =  {
                             'command' : 'noodstop',
-                            'robot_ID': robot_ID,
+                            'robot_id': ID,
                             'position': null,
                         }
 
@@ -171,12 +171,19 @@
                         }
             array.push(sendData);
             printArray();
+            
             ws.send(JSON.stringify(sendData));
-            ws.send("test")
         }
     </script>
 
     <style>
+        #map{
+            background-color: cornflowerblue;
+            height: 200px;
+            width: 200px;
+            left: 0;
+        }
+
         #data{
             position: relative;
             background-color: darkgrey;
@@ -188,12 +195,18 @@
 
         .robot{
             position: absolute;
+            background-color: crimson;
+            height: 20px;
+            width: 20px;
+            transition: 0.5s;
+        }
+        .obstakel{
+            position: absolute;
             background-color: transparent;
             height: 20px;
             width: 20px;
             transition: 1s;
         }
-
     </style>
 
     </body>
