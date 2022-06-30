@@ -13,20 +13,6 @@
             <div class="robot" id="robot3"></div>
             <div class="robot" id="robot4"></div>
 
-            <div class="obj1" id="obj1"></div>
-            <div class="obj2" id="obj2"></div>
-            <div class="obj3" id="obj3"></div>
-            <div class="obj4" id="obj4"></div>
-            <div class="obj5" id="obj5"></div>
-            <div class="obj6" id="obj6"></div>
-            <div class="obj7" id="obj7"></div>
-            <div class="obj8" id="obj8"></div>
-            <div class="obj9" id="obj9"></div>
-            <div class="obj10" id="obj10"></div>
-            <div class="obj11" id="obj11"></div>
-            <div class="obj12" id="obj12"></div>
-            <div class="obj13" id="obj13"></div>
-
             <pre id="data"></pre>
         </div>      
         <script>
@@ -52,15 +38,14 @@
                     let elm3 = document.getElementById("robot3");
                     let elm4 = document.getElementById("robot4");
                     let obs = document.getElementById("obstacle");
+                    // Give robots color
                     document.getElementById("robot1").style.backgroundColor = 'red';
                     document.getElementById("robot2").style.backgroundColor = 'yellow';
                     document.getElementById("robot3").style.backgroundColor = 'purple';
                     document.getElementById("robot4").style.backgroundColor = 'green';  
-                    //let elm = document.getElementById("robot1");
-                    //coole.log(elm)
-                    //console.log(data)
                     let canvas = document.getElementById("theCanvas");
                     console.log(Object.values(data.Robot_2)[0]);
+                    // Place robots in map
                     elm1.style.top = `${(9-Object.values(data.Robot_1)[1])*20+8}px`;
                     elm1.style.left = `${8+Object.values(data.Robot_1)[0]*20}px`;
 
@@ -76,14 +61,12 @@
                 else if(data.MessageType == "Object-position"){
                     console.log(data)
                     for(let i=0; i < data.ObjectList.length;i++){
+                        //Place obstacles in map
                         let object_positionX = data.ObjectList[i][0]
                         let object_positionY = data.ObjectList[i][1]
                         let object_type = data.ObjectList[i][1]
                         console.log(object_positionX);
                         console.log(object_positionY);
-                        //ws.send('obs');
-                        //console.log(obs)
-                        ///console.log(data)
                         context.fillStyle = "darkblue";
                         context.fillRect(object_positionX*20,(9-object_positionY)*20, 20, 20);
                     }
@@ -93,7 +76,7 @@
         </script>
     <br>
 
-    <div id = "inputFields">
+    <div id = "inputFields"> <!--Create input field for messages-->
         <input type="text" id="robot_ID" size="7" placeholder="robot_ID">
         <input  type="text" id="CoordinateX" size="1" placeholder = "x">
         <input  type="text" id="CoordinateY" size="1"  placeholder = "y">
@@ -101,13 +84,13 @@
     </div>
     <br>
 
-    <div id = "remove">
+    <div id = "remove"> <!--Create input field for removal of tasks-->
             <input type="text" id="index" size="7" placeholder="ID">
             <button onclick="removeFromQueue()"> Remove </button>
     </div>
     <br>
 
-    <div id = "killSwitch">
+    <div id = "killSwitch"> <!--Create the killswitch-->
         <input type="text" id="robot_ID" size="7" placeholder="robot_ID">
         <button onclick="killSwitch()"> Noodstop </button>
     </div>
@@ -127,8 +110,8 @@
         function removeFromQueue(){
             let index = parseInt(document.getElementById("index").value);
             let message = array[index]
+            //deletes message from array
             delete array[index]
-
             var filtered = array.filter(function (elm){
                 return elm != null;
             });
@@ -149,6 +132,7 @@
         function killSwitch(){
             let ID = document.getElementById("robot_ID").value;
             console.log(ID);
+            //send the message to the server for the killswitch
             sendData =  {
                             'command' : 'noodstop',
                             'robot_id': ID,
@@ -162,7 +146,7 @@
             let CoordinateX = parseInt(document.getElementById("CoordinateX").value);
             let CoordinateY = parseInt(document.getElementById("CoordinateY").value);
             let robot_ID = document.getElementById("robot_ID").value;
-            
+            //send message to the server
             let Coordinates = [CoordinateX, CoordinateY]
             sendData =  {
                             'command' : 'command',
