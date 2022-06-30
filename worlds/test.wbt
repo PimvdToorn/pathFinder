@@ -1,0 +1,1679 @@
+#VRML_SIM R2022a utf8
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.3859129874547402 -0.3861788257518711 -0.8378168538855396 4.537020264203643
+  position 0.47241647758595323 -0.7450678923765464 1.4600739175829205
+}
+Transform {
+  translation 0 0 0.001
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 0 0
+        }
+      }
+      geometry Plane {
+        size 0.1 0.1
+      }
+    }
+  ]
+}
+Transform {
+  translation 1 0 0.001
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 1 0
+        }
+      }
+      geometry Plane {
+        size 0.1 0.1
+      }
+    }
+  ]
+}
+Transform {
+  translation 1 1 0.001
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0 1 0
+        }
+      }
+      geometry Plane {
+        size 0.1 0.1
+      }
+    }
+  ]
+}
+Transform {
+  translation 0 1 0.001
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0 0 1
+        }
+      }
+      geometry Plane {
+        size 0.1 0.1
+      }
+    }
+  ]
+}
+Transform {
+  translation 0.05 0.05 0.05
+  rotation 0 1 0 0
+  scale 0.1 0.1 0.1
+  children [
+    Solid {
+      translation 4.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (3)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 2.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (2)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 3.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (14)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 1.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (15)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 6.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (10)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 5.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (13)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 7.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (12)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+  ]
+}
+Transform {
+  translation 0.05 0.25 0.05
+  rotation 0 1 0 0
+  scale 0.1 0.1 0.1
+  children [
+    Solid {
+      translation 4.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (1)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 2.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (4)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 3.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (5)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 1.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (6)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 6.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (7)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 5.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (8)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 7.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (9)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+  ]
+}
+Transform {
+  translation 0.05 0.45 0.05
+  rotation 0 1 0 0
+  scale 0.1 0.1 0.1
+  children [
+    Solid {
+      translation 1.5 2.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (6)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 1.5 3.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (6)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 1.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (6)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+  ]
+}
+Transform {
+  translation 0.25 0.45 0.05
+  rotation 0 1 0 0
+  scale 0.1 0.1 0.1
+  children [
+    Solid {
+      translation 1.5 2.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (7)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 1.5 3.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (7)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 1.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (7)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+  ]
+}
+Transform {
+  translation 0.45 0.45 0.05
+  rotation 0 1 0 0
+  scale 0.1 0.1 0.1
+  children [
+    Solid {
+      translation 1.5 2.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (7)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 1.5 3.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (7)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 1.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (7)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+  ]
+}
+Transform {
+  translation 0.65 0.45 0.05
+  rotation 0 1 0 0
+  scale 0.1 0.1 0.1
+  children [
+    Solid {
+      translation 1.5 2.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (7)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 1.5 3.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (7)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+    Solid {
+      translation 1.5 1.5 0
+      rotation 0 1 0 0
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              shininess 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/De-Klok-Bier.jpg"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+      ]
+      name "Box (7)"
+      boundingObject Shape {
+        geometry Box {
+          size 1 1 1
+        }
+      }
+    }
+  ]
+}
+Robot {
+  translation 0 0 0.0447139
+  rotation -0.2758711353757768 -0.3099720897224384 0.9098419754328686 0.00261861615396166
+  children [
+    Solid {
+      boundingObject Box {
+        size 0.1 0.1 0.1
+      }
+    }
+    Transform {
+      scale 0.09 0.09 0.09
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 0 0
+              shininess 1
+            }
+          }
+          geometry Box {
+            size 0.999 0.999 0.999
+          }
+        }
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              emissiveColor 1 1 1
+              shininess 1
+              specularColor 0 1 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/GoodShrekImage.png"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+        LED {
+          translation 0.25 0 0.5
+          rotation 0.7071067811865476 0 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led X"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation -0.25 0 0.5
+          rotation 0.7071067811865476 0 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led -X"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation 0 0.25 0.5
+          rotation 0 0.7071067811865476 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led Y"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation 0 -0.25 0.5
+          rotation 0 0.7071067811865476 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led -Y"
+          color [
+            0 1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0.49 0 0
+          name "dist X"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation -0.49 0 0
+          rotation 0 0 1 3.141592653589793
+          name "dist -X"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0 0.49 0
+          rotation 0 0 1 1.5707963267948968
+          name "dist Y"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0 -0.49 0
+          rotation 0 0 1 -1.5707963267948966
+          name "dist -Y"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        GPS {
+        }
+      ]
+    }
+  ]
+  name "robot(1)"
+  boundingObject Shape {
+    geometry Box {
+      size 0.09 0.09 0.09
+    }
+    castShadows FALSE
+  }
+  physics Physics {
+  }
+  radarCrossSection 1
+  controller "my_controller"
+  controllerArgs [
+    "0"
+  ]
+  supervisor TRUE
+  battery [
+    0
+  ]
+}
+Robot {
+  translation 1 0 0.05
+  rotation -0.32975515554399926 -0.3707020578269723 0.8682404745892701 0.002175981085814717
+  children [
+    Solid {
+      boundingObject Box {
+        size 0.1 0.1 0.1
+      }
+    }
+    Transform {
+      scale 0.09 0.09 0.09
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 0
+              shininess 1
+            }
+          }
+          geometry Box {
+            size 0.999 0.999 0.999
+          }
+        }
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              emissiveColor 1 1 1
+              shininess 1
+              specularColor 0 1 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/GoodShrekImage.png"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+        LED {
+          translation 0.25 0 0.5
+          rotation 0.7071067811865476 0 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led X"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation -0.25 0 0.5
+          rotation 0.7071067811865476 0 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led -X"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation 0 0.25 0.5
+          rotation 0 0.7071067811865476 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led Y"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation 0 -0.25 0.5
+          rotation 0 0.7071067811865476 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led -Y"
+          color [
+            0 1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0.49 0 0
+          name "dist X"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation -0.49 0 0
+          rotation 0 0 1 3.141592653589793
+          name "dist -X"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0 0.49 0
+          rotation 0 0 1 1.5707963267948968
+          name "dist Y"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0 -0.49 0
+          rotation 0 0 1 -1.5707963267948966
+          name "dist -Y"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        GPS {
+        }
+      ]
+    }
+  ]
+  name "robot(2)"
+  boundingObject Shape {
+    geometry Box {
+      size 0.09 0.09 0.09
+    }
+    castShadows FALSE
+  }
+  physics Physics {
+  }
+  radarCrossSection 1
+  controller "my_controller"
+  controllerArgs [
+    "1"
+  ]
+  supervisor TRUE
+  battery [
+    0
+  ]
+}
+Robot {
+  translation 1 1 0.05
+  rotation -0.26470386719486394 -0.29813724626389587 0.9170856258181485 0.002440225917558164
+  children [
+    Solid {
+      boundingObject Box {
+        size 0.1 0.1 0.1
+      }
+    }
+    Transform {
+      scale 0.09 0.09 0.09
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 0 1
+              shininess 1
+            }
+          }
+          geometry Box {
+            size 0.999 0.999 0.999
+          }
+        }
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              emissiveColor 1 1 1
+              shininess 1
+              specularColor 0 1 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/GoodShrekImage.png"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+        LED {
+          translation 0.25 0 0.5
+          rotation 0.7071067811865476 0 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led X"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation -0.25 0 0.5
+          rotation 0.7071067811865476 0 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led -X"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation 0 0.25 0.5
+          rotation 0 0.7071067811865476 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led Y"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation 0 -0.25 0.5
+          rotation 0 0.7071067811865476 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led -Y"
+          color [
+            0 1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0.49 0 0
+          name "dist X"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation -0.49 0 0
+          rotation 0 0 1 3.141592653589793
+          name "dist -X"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0 0.49 0
+          rotation 0 0 1 1.5707963267948968
+          name "dist Y"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0 -0.49 0
+          rotation 0 0 1 -1.5707963267948966
+          name "dist -Y"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        GPS {
+        }
+      ]
+    }
+  ]
+  name "robot(3)"
+  boundingObject Shape {
+    geometry Box {
+      size 0.09 0.09 0.09
+    }
+    castShadows FALSE
+  }
+  physics Physics {
+  }
+  radarCrossSection 1
+  controller "my_controller"
+  controllerArgs [
+    "2"
+  ]
+  supervisor TRUE
+  battery [
+    0
+  ]
+}
+Robot {
+  translation 0 1 0.05
+  rotation -0.17325371492329567 -0.19748461743168436 0.9648745908889603 0.002475513294360385
+  children [
+    Solid {
+      boundingObject Box {
+        size 0.1 0.1 0.1
+      }
+    }
+    Transform {
+      scale 0.09 0.09 0.09
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 0 1 0
+              shininess 1
+            }
+          }
+          geometry Box {
+            size 0.999 0.999 0.999
+          }
+        }
+        Shape {
+          appearance Appearance {
+            material Material {
+              ambientIntensity 0.5
+              diffuseColor 1 1 1
+              emissiveColor 1 1 1
+              shininess 1
+              specularColor 0 1 0
+            }
+            texture ImageTexture {
+              url [
+                "./textures/GoodShrekImage.png"
+              ]
+            }
+          }
+          geometry Box {
+            size 1 1 1
+          }
+          castShadows FALSE
+        }
+        LED {
+          translation 0.25 0 0.5
+          rotation 0.7071067811865476 0 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led X"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation -0.25 0 0.5
+          rotation 0.7071067811865476 0 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led -X"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation 0 0.25 0.5
+          rotation 0 0.7071067811865476 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led Y"
+          color [
+            0 1 0
+          ]
+        }
+        LED {
+          translation 0 -0.25 0.5
+          rotation 0 0.7071067811865476 0.7071067811865476 3.141592653589793
+          scale 2 2 2
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                }
+              }
+              geometry Capsule {
+                height 0.1
+                radius 0.05
+              }
+              castShadows FALSE
+            }
+          ]
+          name "led -Y"
+          color [
+            0 1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0.49 0 0
+          name "dist X"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation -0.49 0 0
+          rotation 0 0 1 3.141592653589793
+          name "dist -X"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0 0.49 0
+          rotation 0 0 1 1.5707963267948968
+          name "dist Y"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        DistanceSensor {
+          translation 0 -0.49 0
+          rotation 0 0 1 -1.5707963267948966
+          name "dist -Y"
+          lookupTable [
+            0 0 0
+            0.1 1.1 0
+          ]
+        }
+        GPS {
+        }
+      ]
+    }
+  ]
+  name "robot(4)"
+  boundingObject Shape {
+    geometry Box {
+      size 0.09 0.09 0.09
+    }
+    castShadows FALSE
+  }
+  physics Physics {
+  }
+  radarCrossSection 1
+  controller "my_controller"
+  controllerArgs [
+    "3"
+  ]
+  supervisor TRUE
+  battery [
+    0
+  ]
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0.5 0.5 0
+  rotation 0 1 0 0
+  floorSize 1.1 1.1
+  floorTileSize 0.2 0.2
+}
