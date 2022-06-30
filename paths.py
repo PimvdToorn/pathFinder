@@ -1,9 +1,11 @@
-from __future__ import annotations      # type suggestion of enclosing class
+from __future__ import annotations
+import operator
+from time import sleep      # type suggestion of enclosing class
 from timeit import default_timer as time
 from itertools import permutations
 from copy import copy
 
-from numpy import true_divide
+from numpy import average, sort, true_divide
 
 # The nodes for in the grid
 class Node:
@@ -209,28 +211,24 @@ def nodeCollide(robots : list[Robot], next : dijkstraNode):
                 #              next
 
                 steps = len(robot.path) - 1
-                endIndex = steps - next.dist + 2
+                stepsFrom = next.dist - 1
 
                 # if a robot ends here before this robot could leave
                 if robot.path[-1] == next.node and steps <= next.dist:
                     next.dist = float("inf")
                     return
 
-                # if endIndex is 1 or below, it would've checked the last and this move will be after the other robot has ended
-                elif endIndex > 1:
-                    startIndex = steps - next.dist - 1
-
-                    # Already checked the last one at index 0
-                    startIndex = max(1, startIndex)
-
+                elif stepsFrom < steps:
                     try:
-                        lastIndex = steps - robot.path[::-1].index(next.node, startIndex, endIndex)
+                        lastIndex = steps - operator.indexOf(reversed(robot.path), next.node)
                     except:
                         lastIndex = -1
                     else:
-                        next.dist = lastIndex + 2
-                        intersect = True
-                        break
+                        if lastIndex >= stepsFrom and lastIndex < stepsFrom + 3:
+                            next.dist = lastIndex + 2
+                            intersect = True
+                            break
+
 
 
                 # Check if the robot is not in the way before it moves to the next node
@@ -247,7 +245,7 @@ def nodeCollide(robots : list[Robot], next : dijkstraNode):
 
                     steps = len(robot.path) - 1
                     
-                    endIndex = steps - next.previous.dist + 1
+                    stepsFrom = next.previous.dist - 1
 
 
                     if robot.path[-1] == next.previous.node and steps <= next.dist:
@@ -255,18 +253,15 @@ def nodeCollide(robots : list[Robot], next : dijkstraNode):
                         next.dist = float("inf")
                         break
 
-                    elif endIndex > 1:
-                        startIndex = steps - next.dist
-                        if startIndex < 1: startIndex = 1
-
+                    elif stepsFrom < steps:
                         try:
-                            lastIndex = steps - robot.path[::-1].index(next.previous.node, startIndex, endIndex)
+                            lastIndex = steps - operator.indexOf(reversed(robot.path), next.previous.node)
                         except:
                             lastIndex = -1
                         else:
-                            next.dist = float("inf")
-
-                            break
+                            if lastIndex >= stepsFrom and lastIndex <= next.dist:
+                                next.dist = float("inf")
+                                break
 
 
     return next
@@ -276,6 +271,8 @@ def nodeCollide(robots : list[Robot], next : dijkstraNode):
 def findPath(robots : list[Robot], start : Node, goal : Node):
 
     dijkNodes = [dijkstraNode(start, 0, None)]
+
+    reachedGoal = False
 
     while True:
 
@@ -307,68 +304,62 @@ def findPath(robots : list[Robot], start : Node, goal : Node):
                 nodeCollide(robots, next)
                 
                 
-                if next.dist != float("inf") and (next.dist == 0 or next.previous != None):   
+                if next.dist != float("inf"): 
 
                     if next.node == goal:
-                        # print("Goal check")
+                        reachedGoal = True
+
                         intersect = True
                         while intersect:
                             intersect = False
                             for robot in robots:
                                 if robot.path != []:
                                     steps = len(robot.path) - 1
-                                    startIndex = 0
-                                    endIndex = steps - next.dist + 2
+                                    stepsFrom = next.dist - 1
 
-                                    if endIndex >= 0:
+                                    if stepsFrom < steps:
                                         try:
-                                            lastIndex = steps - robot.path[::-1].index(next.node, startIndex, endIndex)
+                                            lastIndex = steps - operator.indexOf(reversed(robot.path), next.node)
                                         except:
-                                            # print("\t\tNot in the way")
                                             lastIndex = -1
-
                                         else:
-                                            next.dist = lastIndex + 2
-                                            intersect = True
+                                            # Check if any robot will be at the goal after this robot would get there
+                                            if lastIndex >= stepsFrom:
+                                                next.dist = lastIndex + 2
+                                                intersect = True
+                                                break
 
-                        if reachedGoal:
-                            dijkNodes.append(next)
-                            break
 
                     
                     # Check if any robot will end at the location before this robot would be there
                     intersect = False
                     for robot in robots:
                         if len(robot.path) > 0 and robot.path[-1] == next.node and len(robot.path) <= next.dist:
-                            # print("End stop: not added")
                             intersect = True
                             break
                     
                     if not intersect:
 
                         exists = False
-                        for dNode in dijkNodes:
+                        for dNode in reversed(dijkNodes):
 
                             if next.node == dNode.node:
-                                if exists: 
-                                    exists = False
-                                    break
                                 exists = True
+                                break
                      
+
                         if not exists:
-                            # print("Added: " + str(next))
                             dijkNodes.append(next)
 
 
         current.visited = True
 
-
+        # check if the next nodes can be reached from this one in time, if not create a new node with updated distance and do again with the previous
         intersect = True
         while intersect:
             intersect = False
 
 
-            # print("C:" + str(current))
             dNodesToAdd : list[dijkstraNode] = []
 
             for link in dijkNodes:
@@ -378,8 +369,7 @@ def findPath(robots : list[Robot], start : Node, goal : Node):
                     for robot in robots:
                         if robot.path != []:
                             steps = len(robot.path) - 1
-                            
-                            endIndex = steps - current.dist + 1
+                            stepsFrom = current.dist - 1
 
 
                             if robot.path[-1] == current.node and steps <= link.dist:
@@ -387,26 +377,22 @@ def findPath(robots : list[Robot], start : Node, goal : Node):
                                 intersect = True
                                 break
 
-                            elif endIndex >= 0:
-                                startIndex = steps - link.dist
-                                startIndex = max(1, startIndex)
-
+                            elif stepsFrom < steps:
                                 try:
-                                    lastIndex = steps - robot.path[::-1].index(current.node, startIndex, endIndex)
+                                    lastIndex = steps - operator.indexOf(reversed(robot.path), current.node)
                                 except:
                                     lastIndex = -1
-
-
                                 else:
+                                    if lastIndex >= stepsFrom and lastIndex <= link.dist:
+                                        if not intersect or (len(dNodesToAdd) > 0 and dNodesToAdd[-1].dist != lastIndex + 2):
+                                            if current.previous != None:
+                                                dNodesToAdd.append(dijkstraNode(current.node, lastIndex + 2, current.previous))
 
-                                    if not intersect or (len(dNodesToAdd) > 0 and dNodesToAdd[-1].dist != lastIndex + 2):
-                                        if current.previous != None:
-                                            dNodesToAdd.append(dijkstraNode(current.node, lastIndex + 2, current.previous))
+                                        link.previous = None
+                    
+                                        intersect = True
+                                        break
 
-                                    link.previous = None
-                  
-                                    intersect = True
-                                    break
 
                         # Don't step onto a starting point of a robot with no calculated path too quickly  
                         if link.dist < 2 and link.node == robot.location:
@@ -414,26 +400,25 @@ def findPath(robots : list[Robot], start : Node, goal : Node):
 
             
             if intersect:
+                # If a collision has been detected, a new node is added and the previous is checked
 
                 for dNode in dNodesToAdd:
-                    # print(f"Added: {dNode}")
                     dijkNodes.append(dNode)
 
                 previous = current.previous
 
-
-                
-
                 if previous == None: break
                 current = previous
 
+        if reachedGoal:
+            reachedGoal = False
 
-        reachedGoal = False
-
-        for dNode in dijkNodes[::-1]:
-            if dNode.node == goal and dNode.previous != None:
-                reachedGoal = True
-                break
+            # check if the goalnode is not deleted and reachable
+            for dNode in reversed(dijkNodes):
+                if dNode.node == goal and dNode.previous != None:
+                    goaldNode = dNode
+                    reachedGoal = True
+                    break
 
         if reachedGoal: 
             break
@@ -442,13 +427,7 @@ def findPath(robots : list[Robot], start : Node, goal : Node):
 
     # Change the dijkNodes to a list of nodes:
 
-    current = None
-    for dNode in dijkNodes[::-1]:
-        if dNode.node == goal:
-            current = dNode
-            break
-
-
+    current = goaldNode
     path = [current.node]
 
     while True:
@@ -493,7 +472,7 @@ def checkPathsPossibility(robots : list[Robot]):
 def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : bool = False):
     if verbose: start = time()
 
-
+    # to ignore any robots that don't move, put them at the start of the list 
     dontMove = 0
     for robot in robots:
         if robot.goal == None: 
@@ -507,17 +486,15 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
                     if verbose: print(f"End collision of {robot.name} with {otherBot.name}")
                     return -1
 
-
     bestRobotOrder : list[Robot] = []
     for i in range(dontMove):
         bestRobotOrder.append(copy(robots[i]))
 
 
-
-
     order = [*range(dontMove, len(robots))]
     orderLength = len(order)
 
+    # create a list of all possible orders, all in order, i.e. (1,2,3,4,5,6) then (1,2,3,4,6,5)
     allOrders = list(permutations(order))
 
     if count: numberOfOrders = len(allOrders)
@@ -534,18 +511,19 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
 
         if count: print(f"Calculating: {i+1} of {numberOfOrders}\t{order}")
 
+        # if an order has been found to be impossible, any order that starts with that gets ignored
+        # i.e. if in the order (3,2,6,1,4,5) was found to be impossible after (3,2,6)
+        # every order until (3,4,1,2,5,6) gets ignored
         impossible = False
-
         for impOrder in impossibleOrders:
 
             impossible = True
-            for i, robotNumber in enumerate(impOrder):
-                if order[i] > robotNumber:
+            for j, robotNumber in enumerate(impOrder):
+                if order[j] > robotNumber:
                     impossibleOrders.remove(impOrder)
-                    # print(f"Removed impossible order: {impOrder}")
                     impossible = False
                     break
-                if order[i] != robotNumber:
+                if order[j] != robotNumber:
                     impossible = False
                     break
             if impossible: 
@@ -558,38 +536,38 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
             totalSteps = 0
             currentCalculatedOrder = []
 
+            # if (1,2,3,4,5,6) has been calculated, on the next order (1,2,3,4,6,5) only (6,5) will be calculated
             reducedOrder = ()
-            # print(f"order: {order}")
-            for i, robotNumber in enumerate(order):
-                if lastOrder[i] != robotNumber:
-                    reducedOrder = order[i:]
-                    currentCalculatedOrder = list(order[:i])
-                    # print(f"Reduced to: {reducedOrder}")
+            for j, robotNumber in enumerate(order):
+                if lastOrder[j] != robotNumber:
+                    reducedOrder = order[j:]
+                    currentCalculatedOrder = list(order[:j])
                     break
                 totalCost += robots[robotNumber].pathCost
                 totalSteps += robots[robotNumber].steps
 
             lastOrder = order
             
-
+            # reset all the to be calculated paths
             for robotNumber in reducedOrder:
                 robots[robotNumber].path = []
 
             
             for robotNumber in reducedOrder:
-
+                # st = time()
                 totalCost += robots[robotNumber].findPath(robots)
+                # alltimes.append(time() - st)
+
                 currentCalculatedOrder.append(robotNumber)
 
                 if totalCost > lowestTotalCost or totalCost == float("inf"): 
                     if len(currentCalculatedOrder) < orderLength:
-                        # print(f"Found impossible order: {currentCalculatedOrder}")
                         impossibleOrders.append(currentCalculatedOrder)
                     break
 
                 totalSteps += len(robots[robotNumber].path) - 1
             
-
+            # If this order is better, add it
             if (totalCost < lowestTotalCost or (totalCost == lowestTotalCost and totalSteps < lowestTotalSteps)) and totalCost != float("inf") and checkPathsPossibility(robots):
                 lowestTotalCost = totalCost
                 lowestTotalSteps = totalSteps
@@ -599,9 +577,6 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
                 for robotNumber in range(dontMove, len(robots)):
                     bestRobotOrder.append(copy(robots[robotNumber]))
                 
-                # print(bestRobotOrder)
-
-
 
     if verbose:
 
@@ -646,16 +621,20 @@ robots.append(Robot("Robot(1)", 1, grid.getNode((0,0)), grid.getNode((3,3))))
 robots.append(Robot("Robot(2)", 1, grid.getNode((0,10)), grid.getNode((5,0))))
 robots.append(Robot("Robot(3)", 6, grid.getNode((10,0)), grid.getNode((3,7))))
 robots.append(Robot("Robot(4)", 18, grid.getNode((10,10)), grid.getNode((5,3))))
-# robots.append(Robot("Robot(5)", 2, grid.getNode((1,0)), grid.getNode((7,7))))
-# robots.append(Robot("Robot(6)", 8, grid.getNode((6,5)), grid.getNode((4,3))))
-# robots.append(Robot("Robot(7)", 7, grid.getNode((7,3)), grid.getNode((9,3))))
-# robots.append(Robot("Robot(8)", 7, grid.getNode((3,6)), grid.getNode((7,5))))
-# robots.append(Robot("Robot(9)", 7, grid.getNode((7,3)), grid.getNode((4,5))))
+robots.append(Robot("Robot(5)", 2, grid.getNode((1,0)), grid.getNode((7,7))))
+robots.append(Robot("Robot(6)", 8, grid.getNode((6,5)), grid.getNode((4,3))))
+robots.append(Robot("Robot(7)", 7, grid.getNode((7,3)), grid.getNode((9,3))))
+robots.append(Robot("Robot(8)", 7, grid.getNode((3,6)), grid.getNode((7,5))))
+# robots.append(Robot("Robot(9)", 7, grid.getNode((5,7)), grid.getNode((4,5))))
 # robots.append(Robot("Robot(7)", 7, grid.getNode((5,0))))
 
 
+
 # start = time()
+# alltimes = []
 robots = calculateBestPaths(robots, True)
+# alltimes.sort()
+# print(f"Average time to calculate a path: {average(alltimes[10000:-10000]):.5f}")
 # print(f"Duration: {time() - start:.3f} seconds")
 # print(robots)
 
