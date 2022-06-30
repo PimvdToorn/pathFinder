@@ -46,16 +46,16 @@
                     let canvas = document.getElementById("theCanvas");
                     console.log(Object.values(data.Robot_2)[0]);
                     // Place robots in map
-                    elm1.style.top = `${(9-Object.values(data.Robot_1)[1])*20+8}px`;
+                    elm1.style.top = `${(9-Object.values(data.Robot_1)[1]+1)*20+8}px`;
                     elm1.style.left = `${8+Object.values(data.Robot_1)[0]*20}px`;
 
-                    elm2.style.top = `${(9-Object.values(data.Robot_2)[1])*20+8}px`;
+                    elm2.style.top = `${(9-Object.values(data.Robot_2)[1]+1)*20+8}px`;
                     elm2.style.left = `${8+Object.values(data.Robot_2)[0]*20}px`;
 
-                    elm3.style.top = `${(9-Object.values(data.Robot_3)[1])*20+8}px`;
+                    elm3.style.top = `${(9-Object.values(data.Robot_3)[1]+1)*20+8}px`;
                     elm3.style.left = `${8+Object.values(data.Robot_3)[0]*20}px`;
 
-                    elm4.style.top = `${(9-Object.values(data.Robot_4)[1])*20+8}px`;
+                    elm4.style.top = `${(9-Object.values(data.Robot_4)[1]+1)*20+8}px`;
                     elm4.style.left = `${8+Object.values(data.Robot_4)[0]*20}px`;
                 } 
                 else if(data.MessageType == "Object-position"){
@@ -68,7 +68,7 @@
                         console.log(object_positionX);
                         console.log(object_positionY);
                         context.fillStyle = "darkblue";
-                        context.fillRect(object_positionX*20,(9-object_positionY)*20, 20, 20);
+                        context.fillRect(object_positionX*20,(9-(object_positionY-1))*20, 20, 20);
                     }
                 }
             }
