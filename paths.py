@@ -132,6 +132,11 @@ class Robot:
         return (len(self.path) - 1) * self.cost
 
 
+
+
+
+
+
 def newPrevious(robots : list[Robot], dijkNodes : list[dijkstraNode], unlinkedNode : dijkstraNode):
 
     for dNode in dijkNodes:
@@ -491,21 +496,21 @@ def findPath(robots : list[Robot], start : Node, goal : Node):
                 current = previous
 
         reachedGoal = False
-        goalDNode : dijkstraNode = None
+        # goalDNode : dijkstraNode = None
 
         for dNode in dijkNodes[::-1]:
             if dNode.node == goal and dNode.previous != None:
                 # print("Goal----------------------------")
-                goalDNode = dNode
+                # goalDNode = dNode
                 reachedGoal = True
                 break
 
         # once = reachedGoal
-        while goalDNode != None:
-            # print(f"Goalnodes: {goalDNode}")
-            # sleep(0.5)
-            reachedGoal = goalDNode.node == start
-            goalDNode = goalDNode.previous
+        # while goalDNode != None:
+        #     # print(f"Goalnodes: {goalDNode}")
+        #     # sleep(0.5)
+        #     reachedGoal = goalDNode.node == start
+        #     goalDNode = goalDNode.previous
 
         # if once != reachedGoal: print("Didn't reach goal@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         if reachedGoal: 
@@ -618,7 +623,7 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
         for impOrder in impossibleOrders:
             # print(f"Impossible: {impOrder}")
             # if all(order[i] == robotNumber  for i,robotNumber  in enumerate(impOrder)):
-            #     print(f"Impossible order: {order} starts with impossible sublist: {impOrder}")
+            #     # print(f"Impossible order: {order} starts with impossible sublist: {impOrder}")
             #     impossible = True
             #     break
 
@@ -633,7 +638,7 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
                     impossible = False
                     break
             if impossible: 
-                # print(f"Impossible order: {order} starts with impossible sublist: {impOrder}")
+                if count: print(f"Impossible order: {order} starts with impossible sublist: {impOrder}")
                 break
                 
 
@@ -665,7 +670,7 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
 
                 bestRobotOrder = bestRobotOrder[0:dontMove]
 
-                for robotNumber in order:
+                for robotNumber in range(dontMove, len(robots)):
                     bestRobotOrder.append(copy(robots[robotNumber]))
                 
                 # print(bestRobotOrder)
@@ -696,34 +701,26 @@ def calculateBestPaths(robots : list[Robot], verbose : bool = False, count : boo
 
 
 
-# grid = Grid(10, 10)
+# grid = Grid(11, 11)
 
-# grid.addObstacle((1,1))
-# grid.addObstacle((1,2))
-# grid.addObstacle((1,3))
-# grid.addObstacle((1,4))
-# grid.addObstacle((2,5))
-# grid.addObstacle((3,0))
-# grid.addObstacle((3,7))
-# grid.addObstacle((4,1))
-# grid.addObstacle((4,3))
-# grid.addObstacle((4,4))
-# grid.addObstacle((4,7))
-# grid.addObstacle((5,1))
-# grid.addObstacle((5,6))
-# grid.addObstacle((6,3))
-# grid.addObstacle((6,4))
-# grid.addObstacle((6,7))
-# grid.addObstacle((7,7))
+# obstacles = [(2,2),(2,3),(2,4),(2,5),(2,6),(2,7),(2,8),
+#              (4,2),(4,3),(4,4),(4,5),(4,6),(4,7),(4,8),
+#              (6,2),(7,2),(8,2),
+#              (6,4),(7,4),(8,4),
+#              (6,6),(7,6),(8,6),
+#              (6,8),(7,8),(8,8)]
+
+# for obstacle in obstacles:
+#     grid.addObstacle(obstacle)
 
 
 
 # robots : list[Robot] = []
 
-# robots.append(Robot("Robot(1)", 1, grid.getNode((0,0)), grid.getNode((2,3))))
-# robots.append(Robot("Robot(2)", 4, grid.getNode((7,6)), grid.getNode((2,0))))
-# robots.append(Robot("Robot(3)", 7, grid.getNode((1,5)), grid.getNode((3,2))))
-# robots.append(Robot("Robot(4)", 3, grid.getNode((6,6)), grid.getNode((4,0))))
+# robots.append(Robot("Robot(1)", 1, grid.getNode((0,0)), grid.getNode((3,3))))
+# robots.append(Robot("Robot(2)", 1, grid.getNode((0,10)), grid.getNode((5,0))))
+# robots.append(Robot("Robot(3)", 6, grid.getNode((10,0)), grid.getNode((7,3))))
+# robots.append(Robot("Robot(4)", 18, grid.getNode((10,10)), grid.getNode((4,0))))
 # robots.append(Robot("Robot(5)", 2, grid.getNode((1,0)), grid.getNode((5,0))))
 # robots.append(Robot("Robot(6)", 8, grid.getNode((3,1)), grid.getNode((5,4))))
 # robots.append(Robot("Robot(7)", 7, grid.getNode((7,2))))
